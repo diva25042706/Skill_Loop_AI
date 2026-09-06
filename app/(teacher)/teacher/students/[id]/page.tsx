@@ -8,13 +8,14 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Users, ArrowLeft, Brain, AlertTriangle, ShieldAlert, CheckCircle2, Network } from "lucide-react"
 import Link from "next/link"
-import { notFound } from "next/navigation"
+import { useParams, notFound } from "next/navigation"
 import {
   RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer, Tooltip
 } from "recharts"
 
-export default function StudentDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params)
+export default function StudentDetailPage() {
+  const routerParams = useParams()
+  const id = typeof routerParams?.id === 'string' ? routerParams.id : Array.isArray(routerParams?.id) ? routerParams.id[0] : ''
   const student = classroomService.getStudentById(id)
   const { theme } = useTheme()
 
